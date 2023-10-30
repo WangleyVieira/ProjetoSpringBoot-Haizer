@@ -32,7 +32,8 @@ public class Usuario {
 	
 	@Basic
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	
 	private Date dataNascimento;
 	
 	@Email(message = "Email inválido")
