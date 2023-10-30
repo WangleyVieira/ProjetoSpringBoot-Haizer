@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		
+			<link rel="stylesheet" th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}">
+			<script th:src="@{/jquery-3.6/code.jquery.com_jquery-3.6.0.min.js}"></script>
+			<script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.min.js}"></script>
+		
+			<style>
+				.mensagem {
+				  color: red;
+				}
+			</style>
+	</head>
+	
+	<body>
+		<div class="container">
+			<br>
+		  	<div class="card" style="background-color:rgb(192, 192, 192)">
+				  <div class="card">
+					  <div class="card-body">
+						  <h2>Cadastrar usuário</h2>
+					    	<div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
+								<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+								<span th:text="${mensagem}"></span>
+							</div>
+							
+							<form action="#" th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
+	
+							  <div class="row">
+								  <div class="form-group col-md-4">
+									    <label>Nome:</label>
+									    <div>
+									    	<input class="form-control" type="text" th:field="*{nome}"> 
+									    </div>
+									    <div> 
+									    	<span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+									    </div>				
+								  </div>
+								  <div class="form-group col-md-4">
+									  	<label>CPF:</label>
+									    <div>
+									    	<input class="form-control" type="text" th:field="*{cpf}"> 
+									    </div>
+										<div> 
+									    	<span class="mensagem" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+									    </div>
+								  </div>
+								  <div class="form-group col-md-4">
+									  	<label>Nascimento:</label>
+									    <div>
+									    	<input class="form-control" type="text" th:field="*{dataNascimento}"> 
+									    </div>
+										<div> 
+									    	<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
+									    </div>
+								  </div>
+								  <div class="form-group col-md-4">
+									  	<label>Email:</label>
+									    <div>
+									    	<input class="form-control" type="text" th:field="*{email}"> 
+									    </div>
+										<div> 
+									    	<span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+									    </div>
+								  </div>
+								  <div class="form-group col-md-4">
+									  	<label>Login:</label>
+									    <div>
+									    	<input class="form-control" type="text" th:field="*{login}"> 
+									    </div>
+										<div> 
+									    	<span class="mensagem" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+									    </div>
+								  </div>
+								  <div class="form-group col-md-4">
+									  	<label>Senha:</label>
+									    <div>
+									    	<input class="form-control" type="text" th:field="*{password}"> 
+									    </div>
+										<div> 
+									    	<span class="mensagem" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+									    </div>
+								  </div>
+							  </div>
+							  <br>
+								<input  class="btn btn-primary" type="submit" value="Salvar"/>
+							</form>
+					      </div>
+					  </div>
+				</div>  	
+			</div>
+		</div>
+	</body>
+</html>
