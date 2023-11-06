@@ -53,4 +53,18 @@ public class UsuarioController {
 			return e.getMessage();
 		}
 	}
+	
+	@RequestMapping("/admin/listar")
+	public String listarUsuario(Model model)
+	{
+		try {
+			model.addAttribute("usuarios", usuarioRepository.findAll());
+			
+			return "/auth/admin/admin-listar-usuario";
+			
+		}
+		catch(Exception e) {
+			return e.getMessage();
+		}
+	}
 }

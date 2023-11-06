@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">	
+
+		<title>Listagem de Usuários</title>
+		
+			<link rel="stylesheet" th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}">
+			<script th:src="@{/jquery-3.6/code.jquery.com_jquery-3.6.0.min.js}"></script>
+			<script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.min.js}"></script>
+		
+	</head>
+	
+	<body>
+		<div th:insert="fragments/publica-navbar :: nav"></div>
+		<br>
+		<div class="container">
+			<div class="row">
+				<table class="table table-striped">
+					<thead class="table-dark">
+						<tr>
+							<th>Nome</th>
+							<th>CPF</th>
+							<th>Nascimento</th>
+							<th>E-mail</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${usuarios.empty}">
+							<td colspan="2">Sem usuários cadastrados</td>
+						</tr>
+						<tr th:each="usuario : ${usuarios}">
+							<td><span th:text="${usuario.nome}"> Nome </span></td>
+							<td class="cpf"><span th:text="${usuario.cpf}"> CPF </span></td>
+							<td><span th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}"> Data de Nascimento</span></td>
+							<td><span th:text="${usuario.email}"> E-mail</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+  		
+  		<script>
+			  $(document).ready(function () {
+				  $('.cpf').mask('000.000.000-00')
+				})
+		</script>
+	</body>
+</html>
