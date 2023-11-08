@@ -1,5 +1,7 @@
 package com.haizer.projetospringboot.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +49,7 @@ public class UsuarioController {
 			usuarioRepository.save(usuario);
 			attributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso!");
 			
-			return "redirect:/usuario/novo";
+			return "redirect:/usuario/admin/listar";
 			
 		}
 		catch(Exception e) {
@@ -78,6 +80,7 @@ public class UsuarioController {
 			usuarioRepository.delete(usuario);
 			
 			attributes.addFlashAttribute("mensagem", "Usuário excluído com sucesso!");
+			
 			return "redirect:/usuario/admin/listar";
 			
 		}
@@ -86,5 +89,43 @@ public class UsuarioController {
 		}
 	}
 	
+	@GetMapping("/editar/{id}")
+	public String editarUsuario(@PathVariable("id") long id, Model model)
+	{
+		try {
+			Optional<Usuario> usuarioVelho = usuarioRepository.findById(id);
+			if (!usuarioVelho.isPresent()) {
+				throw new IllegalArgumentException("Usuário inválido: " + id);
+			}
+			
+			Usuario usuario = usuarioVelho.get();
+			model.addAttribute("usuario", usuario);
+			
+			return "/auth/user/user-alterar-usuario";
+			
+		}
+		catch(Exception e) {
+			return e.getMessage();
+		}
+	}
+	
+	@PostMapping("/alterar/{id}")
+	public String alterarUsuario(@PathVariable("id") long id, @Valid Usuario usuario, BindingResult result, RedirectAttributes attributes)
+	{
+		try {
+			if (result.hasErrors()) {
+				usuario.setId(id);
+				return "/auth/user/user-alterar-usuario";
+			}
+			usuarioRepository.save(usuario);
+			attributes.addFlashAttribute("mensagem", "Usuário alterado com sucesso!");
+			
+			return "redirect:/usuario/admin/listar";
+			
+		}
+		catch(Exception e) {
+			return e.getMessage();
+		}
+	}
 	
 }
