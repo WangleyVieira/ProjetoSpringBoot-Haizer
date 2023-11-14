@@ -1,15 +1,20 @@
 package com.haizer.projetospringboot.modelo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
@@ -48,6 +53,13 @@ public class Usuario {
 	private String login;
 	
 	private boolean ativo;
+	
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="usuario_papel",
+			   joinColumns = @JoinColumn(name = "usuario_id"),
+			   inverseJoinColumns = @JoinColumn(name = "papel_id"))
+	private List<Papel> papeis;
 	
 	public Long getId() {
 		return id;
@@ -97,6 +109,11 @@ public class Usuario {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
+	public List<Papel> getPapeis() {
+		return papeis;
+	}
+	public void setPapeis(List<Papel> papeis) {
+		this.papeis = papeis;
+	}
 	
 }
